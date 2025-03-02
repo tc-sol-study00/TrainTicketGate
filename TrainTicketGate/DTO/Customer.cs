@@ -4,16 +4,14 @@ using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
+using TrainTicketGate.Services;
 
 namespace TrainTicketGate.DTO {
 
-    public enum EnumAdultChileClassification {
-        Adult,
-        Child
-    }
     internal class Customer {
-        public EnumAdultChileClassification AdultChileClassification { get; set; }
+        public Config.EnumAdultChileClassification AdultChileClassification { get; set; }
 
+        public int SpendSecond => Config.TimeByCustomerType[AdultChileClassification]; 
 
     }
 }
