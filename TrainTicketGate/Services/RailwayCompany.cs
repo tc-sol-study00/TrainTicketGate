@@ -88,7 +88,13 @@ namespace TrainTicketGate.Services {
             }
         }
 
+        /// <summary>
+        /// 集計・表示
+        /// </summary>
         public void Summarize() {
+            /*
+             * 時間帯別待ち時間集計
+             */
             var summarizedList=_stationOperation._ticketGateOperation.PutOutCustomers.GroupBy(x => x.DateTimeGetTicketGateArea.Hour)
                 .Select( g=>new { Hour=g.Key, Min = g.Min(x => x.WaitSeconds), Avg = g.Average(x => x.WaitSeconds),Max = g.Max(x => x.WaitSeconds) });
 
@@ -96,8 +102,10 @@ namespace TrainTicketGate.Services {
             foreach (var aList in summarizedList) {
                 Console.WriteLine($"{aList.Hour:00}:{aList.Min}:{(int)aList.Avg}:{aList.Max}");
             }
-            int c = 0;
 
+            /*
+             * 時間帯別待ち行列数集計
+             */
             var queueSummary=_stationOperation._ticketGateOperation.WaitQueueBySecondsTimes.GroupBy(x => x.ActualDatetime.Hour)
                 .Select(g => new { Hour = g.Key, Min = g.Min(x => x.CustomerNumber), Avg = g.Average(x => x.CustomerNumber), Max = g.Max(x => x.CustomerNumber) });
 
