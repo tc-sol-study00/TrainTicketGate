@@ -63,8 +63,8 @@ namespace TrainTicketGate.Services {
                 TimeOnly setTime = ServicesStartTime;
                 TimeTables = new List<TimeTable>();
                 while (setTime <= ServicesEndTime) {
-                    TimeTables.Add(new TimeTable { TrainName = setTime.ToString("hh:mm着列車"), ArivalTime = setTime });
-                    setTime = setTime.AddMinutes(20);
+                    TimeTables.Add(new TimeTable { TrainName = setTime.ToString("HH:mm着列車"), ArivalTime = setTime });
+                    setTime = setTime.AddMinutes(5);
                 }
 
             } else {

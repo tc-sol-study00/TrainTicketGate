@@ -11,7 +11,19 @@ namespace TrainTicketGate.DTO {
     internal class Customer {
         public Config.EnumAdultChileClassification AdultChileClassification { get; set; }
 
-        public int SpendSecond => Config.TimeByCustomerType[AdultChileClassification]; 
+        public DateTime DateTimeGetTicketGateArea { get; set; }
+
+        public DateTime DateTimeExitTicketGateArea { get; set; }
+        public int WaitSeconds {
+            get {
+                if (DateTimeGetTicketGateArea <= DateTimeExitTicketGateArea) {
+                    return (int)(DateTimeExitTicketGateArea - DateTimeGetTicketGateArea).TotalSeconds;
+                } else {
+                    return 0;
+                }
+            }
+        }
+        public int SpendSeconds => Config.TimeByCustomerType[AdultChileClassification]; 
 
     }
 }
