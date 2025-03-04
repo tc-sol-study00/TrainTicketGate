@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TrainTicketGate.Services;
+﻿using TrainTicketGate.DTO;
 
-namespace TrainTicketGate.DTO {
+namespace TrainTicketGate.Services {
     /// <summary>
     /// 改札口クラス
     /// </summary>
@@ -34,9 +29,9 @@ namespace TrainTicketGate.DTO {
         /// <param name="timeOperation"></param>
         /// <param name="customer"></param>
         /// <returns></returns>
-        public TicketGate SetEnterDateTime(TimeOperation timeOperation, Customer customer) {
+        public TicketGate SetEnterDateTime(DateTime currentDateTime, Customer customer) {
             Customer = customer;
-            SetEnterDateTime(timeOperation, Customer.SpendSeconds);
+            SetEnterDateTime(currentDateTime, Customer.SpendSeconds);
             return this;
         }
 
@@ -44,10 +39,9 @@ namespace TrainTicketGate.DTO {
         /// 改札から人が抜けたときの処理と初期化
         /// </summary>
         /// <returns></returns>
-        public override TicketGate SetExitDateTime() {
+        public override void SetExitDateTime() {
             Customer = null;
             base.SetExitDateTime();
-            return this;
         }
 
     }

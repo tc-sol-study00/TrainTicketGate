@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TrainTicketGate.DTO {
-
+﻿namespace TrainTicketGate.DTO {
     /// <summary>
     /// 列車
     /// </summary>
@@ -13,11 +6,10 @@ namespace TrainTicketGate.DTO {
         /// <summary>
         /// 列車名称
         /// </summary>
-        public string TrainName { get; set; }
+        public required string TrainName { get; set; }
         /// <summary>
         /// 乗客
         /// </summary>
-        public IList<Customer> Customers { get; set; }
-
+        public required IList<Customer> Customers { get; set; }
     }
 }

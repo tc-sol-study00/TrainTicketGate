@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TrainTicketGate.DTO;
+﻿using TrainTicketGate.DTO;
 
 namespace TrainTicketGate.Services {
     internal class StationOperations {
@@ -15,9 +10,11 @@ namespace TrainTicketGate.Services {
         /// コンコースは一つだが、各列車から降車した乗客が改札口に到着する前に、次の列車が到着するのでリスト化している
         /// </remarks>
         public IList<Concourse> Concourses { get; init; }
+
         /// <summary>
         /// 改札口運行クラス
         /// </summary>
+
         public readonly TicketGateOperation _ticketGateOperation;
 
         private readonly TimeOperation _timeOperation;
@@ -34,10 +31,10 @@ namespace TrainTicketGate.Services {
         /// <returns></returns>
         public IList<Concourse> TrainArrival(Train train) {
             //コンコース名
-            Concourse aConcourse = new Concourse(Config.ConcourceDefine.ConcourceName);
+            Concourse aConcourse = new Concourse(Config.ConcourseDefine.ConcourseName);
             
             //コンコース乗客設定
-            aConcourse.SetEnterDateTime(_timeOperation, train.Customers);
+            aConcourse.SetEnterDateTime(_timeOperation.CurrentDateTime, train.Customers);
             Concourses.Add(aConcourse);
             
             return Concourses;
@@ -46,8 +43,9 @@ namespace TrainTicketGate.Services {
         /// <summary>
         /// 駅オペレーション
         /// </summary>
+        /// <param name="concourses">コンコースリスト</param>
         /// <returns></returns>
-        public StationOperations StationExecution() {
+        public TicketGateOperation StationExecution(IList<Concourse> concourses) {
 
             /*
              * コンコースでの各列車到着にあわせリスト化している
@@ -56,7 +54,7 @@ namespace TrainTicketGate.Services {
             for(int c=0; c < Concourses.Count; ){
 
                 //コンコースの乗客が改札口エリアに到着したか？
-                if (Concourses[c].IsExitTime(_timeOperation)) {
+                if (Concourses[c].IsExitTime(_timeOperation.CurrentDateTime)) {
                     //到着
                     Concourses[c].SetExitDateTime();
                     //改札口の待ち行列にコンコースの乗客を追加
@@ -72,9 +70,9 @@ namespace TrainTicketGate.Services {
             /*
              * 改札シミュレーション
              */
-            _ticketGateOperation.AllocateCustomerToGate();
+            TicketGateOperation ticketGateOperation =_ticketGateOperation.AllocateCustomerToGate();
 
-            return this;
+            return ticketGateOperation;
         }
     }
 }

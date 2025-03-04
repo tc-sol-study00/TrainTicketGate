@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TrainTicketGate.DTO;
-
-namespace TrainTicketGate.Services {
+﻿namespace TrainTicketGate.Services {
     internal static class Config {
-
         /// <summary>
         /// 期間定義データ
         /// </summary>
@@ -20,7 +12,7 @@ namespace TrainTicketGate.Services {
         /// <summary>
         /// 大人・子人区分
         /// </summary>
-        public enum EnumAdultChileClassification {
+        public enum EnumAdultChildClassification {
             Adult,
             Child
         }
@@ -28,11 +20,11 @@ namespace TrainTicketGate.Services {
         /// <summary>
         /// 大人・子人毎の改札通過時間
         /// </summary>
-        public static IDictionary<EnumAdultChileClassification, int> TimeByCustomerType { get; }
-            = new Dictionary<EnumAdultChileClassification, int>
+        public static IDictionary<EnumAdultChildClassification, int> TimeByCustomerType { get; }
+            = new Dictionary<EnumAdultChildClassification, int>
                 {
-                    { EnumAdultChileClassification.Adult, 2 },
-                    { EnumAdultChileClassification.Child, 5 }
+                    { EnumAdultChildClassification.Adult, 2 },
+                    { EnumAdultChildClassification.Child, 5 }
                 };
 
         /// <summary>
@@ -55,15 +47,15 @@ namespace TrainTicketGate.Services {
         /// <summary>
         /// コンコース関連初期値
         /// </summary>
-        public static class ConcourceDefine {
-            public const string ConcourceName = "中央コンコース";
-            public const int ConcourceSpendSecond = 300;            //コンコース所要時間（秒）
+        public static class ConcourseDefine {
+            public const string ConcourseName = "中央コンコース";
+            public const int ConcourseSpendSecond = 300;            //コンコース所要時間（秒）
         }
 
         /// <summary>
         /// 改札口構成
         /// </summary>
-        public static readonly IList<TicketGate> TicketGates = new List<TicketGate>() {
+        public static readonly IReadOnlyList<TicketGate> TicketGates = new List<TicketGate>() {
             new TicketGate("1番ゲート"),
             new TicketGate("2番ゲート"),
             new TicketGate("3番ゲート"),
@@ -80,7 +72,6 @@ namespace TrainTicketGate.Services {
             new TicketGate("6番ゲート"),
             new TicketGate("7番ゲート"),
             new TicketGate("8番ゲート"),
-
-        };
+        }.AsReadOnly();
     }
 }

@@ -23,6 +23,5 @@ namespace TrainTicketGate.DTO {
         /// 合計の人数
         /// </summary>
         public int CustomerNumber => CustomerNumberOfChild + CustomerNumberOfAdult;
-
     }
 }

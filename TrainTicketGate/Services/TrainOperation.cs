@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TrainTicketGate.DTO;
+﻿using TrainTicketGate.DTO;
 
 namespace TrainTicketGate.Services {
     internal class TrainOperation {
@@ -22,7 +17,7 @@ namespace TrainTicketGate.Services {
         /// <summary>
         /// 列車運行リスト
         /// </summary>
-        public IList<TimeTable> TimeTables { get; set; }
+        public IList<TimeTable>? TimeTables { get; set; }
 
         /// <summary>
         /// 始発時間
@@ -83,23 +78,31 @@ namespace TrainTicketGate.Services {
         /// </summary>
         /// <param name="trainName"></param>
         /// <returns></returns>
-        public Train CreateTrain(string trainName) {
-
-            CustomerOperation customerOperation = new CustomerOperation();
-            var customers = customerOperation.CreateCustomers();
-
-            Train train = new Train() { TrainName = trainName, Customers = customers };
-            return train;
+        public Train CreateTrain(string trainName,IList<Customer> customers) {
+            return new Train() { TrainName = trainName, Customers = customers };
         }
         /// <summary>
         /// 時刻表の時間になったら、列車一系統とそれに乗るお客さんを作成
         /// </summary>
         /// <param name="time"></param>
         /// <returns></returns>
-        public Train? CheckArrivalTime(TimeOperation time) {
-            var timeTable = TimeTables.Where(x => time.GetDateTime(time.CurrentDate, x.ArivalTime) == time.CurrentDateTime).FirstOrDefault();
+        public Train? CheckArrivalTimeAndCreateTrainWithCustomer(TimeOperation time) {
+
+            if (TimeTables == null) return null;
+
+            TimeTable? timeTable = TimeTables.Where(x => time.GetDateTime(time.CurrentDate, x.ArivalTime) == time.CurrentDateTime).FirstOrDefault();
+
             if (timeTable != null) {
-                return CreateTrain(timeTable.TrainName);
+                /*
+                 * お客さん作成
+                 */
+                CustomerOperation customerOperation = new CustomerOperation();
+                IList<Customer> customers = customerOperation.CreateCustomers();
+
+                /*
+                 * 列車を作成し、お客を乗せる
+                 */
+                return CreateTrain(timeTable.TrainName, customers);
             } else {
                 return null;
             }

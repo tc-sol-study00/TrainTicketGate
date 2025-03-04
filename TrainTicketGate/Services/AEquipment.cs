@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using TrainTicketGate.DTO;
-
-namespace TrainTicketGate.Services {
+﻿namespace TrainTicketGate.Services {
 
     /// <summary>
     /// 施設クラス
@@ -14,8 +6,7 @@ namespace TrainTicketGate.Services {
     /// <remarks>
     /// 改札口・コンコースの基底クラス
     /// </remarks>
-    internal abstract class AEquipment {
-
+    public abstract class AEquipment {
         /// <summary>
         /// 施設に入ってきた時間
         /// </summary>
@@ -45,12 +36,12 @@ namespace TrainTicketGate.Services {
         /// 設備利用開始時間・利用終了予定時間を求める
         /// また、設備をビジーにする
         /// </summary>
-        /// <param name="timeOperation"></param>
-        /// <param name="spendTime"></param>
+        /// <param name="currentDateTime">現在時間</param>
+        /// <param name="spendTime">設備を利用するのに要する時間（秒）</param>
         /// <returns></returns>
-        protected AEquipment SetEnterDateTime(TimeOperation timeOperation, int spendTime) {
+        protected AEquipment SetEnterDateTime(DateTime currentDateTime, int spendTime) {
             SpendSecond = spendTime;
-            EnterDateTime = timeOperation.CurrentDateTime;
+            EnterDateTime = currentDateTime;
             EstimateExitDateTime=EnterDateTime.AddSeconds(spendTime);
             BusyFlg = true;
             return this;
@@ -60,22 +51,20 @@ namespace TrainTicketGate.Services {
         /// 施設から人が抜けたときの処理と初期化
         /// 設備はノービジーにする
         /// </summary>
-        /// <returns></returns>
-        public virtual AEquipment SetExitDateTime() {
+        public virtual void  SetExitDateTime() {
             EnterDateTime = DateTime.MinValue;
             EstimateExitDateTime = DateTime.MinValue;
             SpendSecond = default;
             BusyFlg = false;
-            return this;
         }
 
         /// <summary>
         /// 施設の利用終了時間になったか
         /// </summary>
         /// <param name="timeOperation"></param>
-        /// <returns></returns>
-        public bool IsExitTime(TimeOperation timeOperation) {
-            return EstimateExitDateTime == timeOperation.CurrentDateTime;
+        /// <returns>true/false</returns>
+        public bool IsExitTime(DateTime currentDateTime) {
+            return EstimateExitDateTime == currentDateTime;
         }
     }
 }

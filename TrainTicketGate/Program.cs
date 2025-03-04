@@ -16,8 +16,8 @@ namespace TrainTicketGate
             /*
              * 鉄道会社オペレーション処理
              */
-            _railwayCompany.RailwayCompanyOperations();
-            _railwayCompany.Summarize();
+            RailwayCompany ExecutedRailwayCompany = _railwayCompany.RailwayCompanyOperations();
+            ExecutedRailwayCompany.Summarize();
         }
     }
 }

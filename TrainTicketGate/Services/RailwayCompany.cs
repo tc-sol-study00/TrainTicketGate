@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using TrainTicketGate.DTO;
+﻿using TrainTicketGate.DTO;
 
 namespace TrainTicketGate.Services {
 
@@ -23,7 +17,6 @@ namespace TrainTicketGate.Services {
         private readonly StationOperations _stationOperation;
 
         public RailwayCompany() {
-
             //今日の日付
             DateOnly todayDateOnly = DateOnly.FromDateTime(DateTime.Today);
             
@@ -46,8 +39,7 @@ namespace TrainTicketGate.Services {
         /// <summary>
         /// 鉄道会社オペレーション
         /// </summary>
-        public void RailwayCompanyOperations() {
-
+        public RailwayCompany RailwayCompanyOperations() {
             /*
              * シミュレーション終了時間まで実行
              */
@@ -57,10 +49,12 @@ namespace TrainTicketGate.Services {
                 /*
                  * 列車が到着したか？
                  */
-                Train? train = _trainOperation.CheckArrivalTime(_timeOperation);
+                IList<Concourse>? concourses = _stationOperation.Concourses;
+
+                Train? train = _trainOperation.CheckArrivalTimeAndCreateTrainWithCustomer(_timeOperation);
                 if (train != null) {
                     //到着したら、列車に乗っていたお客を駅のコンコースに登録
-                    _stationOperation.TrainArrival(train);
+                    concourses = _stationOperation.TrainArrival(train);
                 }
 
                 /*
@@ -70,15 +64,15 @@ namespace TrainTicketGate.Services {
                  * ③改札口が開いたかどうか確認
                  * ④空いていたら、お客を改札口にセット
                  */
-                _stationOperation.StationExecution();
+                TicketGateOperation currentTicketGateOperation=_stationOperation.StationExecution(concourses);
 
                 /*
                  *シミュレーション経緯を表示
                  */
-                if (_stationOperation._ticketGateOperation.Customers.Count > 0 || preCount>0 && _stationOperation._ticketGateOperation.Customers.Count ==0) {
-                    //Console.WriteLine($"{_timeOperation.CurrentDateTime}:{new string('*', _stationOperation._ticketGateOperation.Customers.Count / 100)}{_stationOperation._ticketGateOperation.Customers.Count}");
+                if (currentTicketGateOperation.Customers.Count > 0 || preCount>0 && currentTicketGateOperation.Customers.Count ==0) {
+                    Console.WriteLine($"{_timeOperation.CurrentDateTime}:{new string('*', currentTicketGateOperation.Customers.Count / 100)}{currentTicketGateOperation.Customers.Count}");
                 }
-                preCount = _stationOperation._ticketGateOperation.Customers.Count;
+                preCount = currentTicketGateOperation.Customers.Count;
 
                 /*
                  * 時間を１秒進ませる
@@ -86,15 +80,26 @@ namespace TrainTicketGate.Services {
                 _timeOperation.IncrementSecond();
 
             }
+            return this;
         }
 
         /// <summary>
         /// 集計・表示
         /// </summary>
         public void Summarize() {
+            Action df = () => {
+                Console.WriteLine(new string('-', 60));
+            };
+            Action<string> dh = x => {
+                df();
+                Console.WriteLine(x);
+                df();
+            };
+
             /*
              * 時間帯別待ち時間集計
              */
+            dh("時間帯別待ち時間集計(時間帯:最小:平均:最大)");
             var summarizedList=_stationOperation._ticketGateOperation.PutOutCustomers.GroupBy(x => x.DateTimeGetTicketGateArea.Hour)
                 .Select( g=>new { Hour=g.Key, Min = g.Min(x => x.WaitSeconds), Avg = g.Average(x => x.WaitSeconds),Max = g.Max(x => x.WaitSeconds) });
 
@@ -106,14 +111,14 @@ namespace TrainTicketGate.Services {
             /*
              * 時間帯別待ち行列数集計
              */
+            dh("時間帯別待ち行列数集計(時間帯:最小:平均:最大)");
             var queueSummary=_stationOperation._ticketGateOperation.WaitQueueBySecondsTimes.GroupBy(x => x.ActualDatetime.Hour)
                 .Select(g => new { Hour = g.Key, Min = g.Min(x => x.CustomerNumber), Avg = g.Average(x => x.CustomerNumber), Max = g.Max(x => x.CustomerNumber) });
 
             foreach (var aList in queueSummary) {
                 Console.WriteLine($"{aList.Hour:00}:{aList.Min}:{(int)aList.Avg}:{aList.Max}");
             }
-
-
+            df();
         }
     }
 }

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TrainTicketGate.Services {
+﻿namespace TrainTicketGate.Services {
     internal class TimeOperation {
         /// <summary>
         /// 本日
@@ -69,9 +62,9 @@ namespace TrainTicketGate.Services {
         /// <summary>
         /// DateOnlyとTimeOnlyを合成してDateTimeにする
         /// </summary>
-        /// <param name="dateOnly"></param>
-        /// <param name="timeOnly"></param>
-        /// <returns></returns>
+        /// <param name="dateOnly">日付</param>
+        /// <param name="timeOnly">時間</param>
+        /// <returns>日付＋時間→DateTime</returns>
         public DateTime GetDateTime(DateOnly dateOnly,TimeOnly timeOnly) {
             return dateOnly.ToDateTime(timeOnly);
         }

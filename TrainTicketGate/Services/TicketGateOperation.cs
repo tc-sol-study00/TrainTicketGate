@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using TrainTicketGate.DTO;
+﻿using TrainTicketGate.DTO;
 
 namespace TrainTicketGate.Services {
 
@@ -16,7 +10,7 @@ namespace TrainTicketGate.Services {
         /// <summary>
         /// 改札口リスト
         /// </summary>
-        public IList<TicketGate> TicketGates { get; init; }
+        public IReadOnlyList<TicketGate> TicketGates { get; init; }
 
         /// <summary>
         /// 改札前待ち行列
@@ -49,6 +43,7 @@ namespace TrainTicketGate.Services {
             PutOutCustomers = new List<Customer>(); //改札から出た乗客処理科
             WaitQueueBySecondsTimes = new List<WaitQueueBySecondsTime>();    //待ち行列集計
         }
+
         /*
          * 待ち行列制御
          */
@@ -71,10 +66,10 @@ namespace TrainTicketGate.Services {
         /// </summary>
         /// <param name="customer">一人のお客</param>
         /// <returns>出てきた時間がセットされたお客</returns>
-        private Customer PutOutCustomer(Customer customer) {
+        private IList<Customer> PutOutCustomer(Customer customer) {
             customer.DateTimeExitTicketGateArea = _timeOperation.CurrentDateTime;
             PutOutCustomers.Add(customer);
-            return customer;
+            return PutOutCustomers;
         }
 
         /// <summary>
@@ -85,7 +80,6 @@ namespace TrainTicketGate.Services {
             Customer? customer;
             if (Customers.Count > 0) {
                 customer = Customers[0];
-                //customer.DateTimeGetTicketGateArea = _timeOperation.CurrentDateTime;
                 Customers.RemoveAt(0);
             } else {
                 customer = null;
@@ -98,7 +92,9 @@ namespace TrainTicketGate.Services {
              */
             foreach (TicketGate aTicketGate in TicketGates.Where(x => x.BusyFlg == true && x.EstimateExitDateTime == _timeOperation.CurrentDateTime)) {
                 //改札を抜けた時間
-                PutOutCustomer(aTicketGate.Customer);
+                if (aTicketGate.Customer != null) {
+                    PutOutCustomers=PutOutCustomer(aTicketGate.Customer);
+                }
                 //改札クリア(ノービジー化）
                 aTicketGate.SetExitDateTime();
             }
@@ -110,20 +106,33 @@ namespace TrainTicketGate.Services {
                 foreach (TicketGate aTicketGate in TicketGates.Where(x => x.BusyFlg == false)) {
                     Customer? customer = PullDownCustomer();
                     if (customer != null) {
-                        aTicketGate.SetEnterDateTime(_timeOperation, customer);
+                        aTicketGate.SetEnterDateTime(_timeOperation.CurrentDateTime, customer);
                         if (Customers.Count <= 0) break;
                     } else {
                         break;
                     }
                 }
             }
-
-            var summary=Customers.GroupBy(x => x.AdultChileClassification).ToDictionary(g => g.Key, g=>g.Count() );
-            var result = (summary.GetValueOrDefault(Config.EnumAdultChileClassification.Adult, 0), summary.GetValueOrDefault(Config.EnumAdultChileClassification.Child, 0));
-
-            WaitQueueBySecondsTimes.Add(new WaitQueueBySecondsTime() { ActualDatetime = _timeOperation.CurrentDateTime, CustomerNumberOfAdult = result.Item1, CustomerNumberOfChild = result.Item2 });
+            //待ち行列集計（秒単位）
+            WaitQueueBySecondsTimes=CreateWaitQueueBySecondsTime(Customers, WaitQueueBySecondsTimes);
 
             return this;
+        }
+
+        /// <summary>
+        /// 待ち行列集計（秒単位）
+        /// </summary>
+        /// <param name="customers">改札前待ち行列</param>
+        /// <param name="waitQueueBySecondsTimes">改札口前の待ち行列</param>
+        /// <returns>改札口前の待ち行列</returns>
+        private IList<WaitQueueBySecondsTime> CreateWaitQueueBySecondsTime(IList<Customer> customers, IList<WaitQueueBySecondsTime> waitQueueBySecondsTimes) {
+            Dictionary<Config.EnumAdultChildClassification, int> summary 
+                = customers.GroupBy(x => x.AdultChildClassification).ToDictionary(g => g.Key, g => g.Count());
+            (int,int) result = (summary.GetValueOrDefault(Config.EnumAdultChildClassification.Adult, 0), summary.GetValueOrDefault(Config.EnumAdultChildClassification.Child, 0));
+
+            waitQueueBySecondsTimes.Add(new WaitQueueBySecondsTime() { ActualDatetime = _timeOperation.CurrentDateTime, CustomerNumberOfAdult = result.Item1, CustomerNumberOfChild = result.Item2 });
+
+            return waitQueueBySecondsTimes;
         }
     }
 }

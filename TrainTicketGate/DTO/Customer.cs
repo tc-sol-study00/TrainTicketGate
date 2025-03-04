@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
-using TrainTicketGate.Services;
+﻿using TrainTicketGate.Services;
 
 namespace TrainTicketGate.DTO {
 
@@ -15,7 +9,7 @@ namespace TrainTicketGate.DTO {
         /// <summary>
         /// 大人・小人区分
         /// </summary>
-        public Config.EnumAdultChileClassification AdultChileClassification { get; set; }
+        public Config.EnumAdultChildClassification AdultChildClassification { get; set; }
 
         /// <summary>
         /// 改札口エリア到着時間
@@ -43,7 +37,7 @@ namespace TrainTicketGate.DTO {
         /// <summary>
         /// このお客の改札口通過時間
         /// </summary>
-        public int SpendSeconds => Config.TimeByCustomerType[AdultChileClassification]; 
+        public int SpendSeconds => Config.TimeByCustomerType[AdultChildClassification]; 
 
     }
 }
