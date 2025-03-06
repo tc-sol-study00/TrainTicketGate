@@ -3,7 +3,7 @@ namespace TrainTicketGate.DTO {
     /// <summary>
     /// 改札口前の待ち行列
     /// </summary>
-    internal class WaitQueueBySecondsTime {
+    public class WaitQueueBySecondsTime {
         /// <summary>
         /// 時点データ（１秒ごと）
         /// </summary>

@@ -1,7 +1,7 @@
 ﻿using TrainTicketGate.DTO;
 
 namespace TrainTicketGate.Services {
-    internal class StationOperations {
+    public class StationOperations {
 
         /// <summary>
         /// コンコースリスト

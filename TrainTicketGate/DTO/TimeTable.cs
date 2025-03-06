@@ -2,7 +2,7 @@
     /// <summary>
     /// 時刻表
     /// </summary>
-    internal class TimeTable {
+    public class TimeTable {
         /// <summary>
         /// 列車名称
         /// </summary>

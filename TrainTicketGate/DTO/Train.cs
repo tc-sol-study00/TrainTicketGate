@@ -2,7 +2,7 @@
     /// <summary>
     /// 列車
     /// </summary>
-    internal class Train {
+    public class Train {
         /// <summary>
         /// 列車名称
         /// </summary>

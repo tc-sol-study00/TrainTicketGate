@@ -6,15 +6,18 @@ namespace TrainTicketGate.Services {
     /// <summary>
     /// 鉄道会社クラス
     /// </summary>
-    internal class RailwayCompany {
+    public class RailwayCompany {
 
         private readonly DateTime _startTime;
         private readonly DateTime _endTime;
         private readonly DateTime _serviceEndTime;
 
         private readonly TimeOperation _timeOperation;
-        private readonly TrainOperation _trainOperation;
-        private readonly StationOperations _stationOperation;
+        public readonly TrainOperation _trainOperation;
+        public readonly StationOperations _stationOperation;
+
+
+        public IDictionary<string, int> CustomerQty { get; private set; } = new Dictionary<string, int>();
 
         public RailwayCompany() {
             //今日の日付
@@ -34,6 +37,7 @@ namespace TrainTicketGate.Services {
             _trainOperation = new TrainOperation(TimeOnly.FromDateTime(_startTime), TimeOnly.FromDateTime(_serviceEndTime));
             //駅運行オブジェクト
             _stationOperation = new StationOperations(_timeOperation);
+
         }
 
         /// <summary>
@@ -55,6 +59,7 @@ namespace TrainTicketGate.Services {
                 if (train != null) {
                     //到着したら、列車に乗っていたお客を駅のコンコースに登録
                     concourses = _stationOperation.TrainArrival(train);
+                    CustomerQty[train.TrainName] = train.Customers.Count;
                 }
 
                 /*

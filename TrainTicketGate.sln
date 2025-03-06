@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35728.132 d17.12
+VisualStudioVersion = 17.12.35728.132
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainTicketGate", "TrainTicketGate\TrainTicketGate.csproj", "{184788E4-80F6-4E3D-B470-389EB0BDA62A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainTicketGateForms", "TrainTicketGateForms\TrainTicketGateForms.csproj", "{9B630975-D8EE-4D80-ABDF-01AD7D100A2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{184788E4-80F6-4E3D-B470-389EB0BDA62A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{184788E4-80F6-4E3D-B470-389EB0BDA62A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{184788E4-80F6-4E3D-B470-389EB0BDA62A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B630975-D8EE-4D80-ABDF-01AD7D100A2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B630975-D8EE-4D80-ABDF-01AD7D100A2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B630975-D8EE-4D80-ABDF-01AD7D100A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B630975-D8EE-4D80-ABDF-01AD7D100A2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3A0A9DD8-560C-4E39-A39F-4688C8857D4A}
 	EndGlobalSection
 EndGlobal

@@ -4,7 +4,7 @@ namespace TrainTicketGate.Services {
     /// <summary>
     /// 改札口クラス
     /// </summary>
-    internal class TicketGate : AEquipment {
+    public class TicketGate : AEquipment {
         /// <summary>
         /// 改札口名
         /// </summary>

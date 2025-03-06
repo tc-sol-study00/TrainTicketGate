@@ -5,7 +5,7 @@ namespace TrainTicketGate.Services {
     /// <summary>
     /// 乗客運行クラス
     /// </summary>
-    internal class CustomerOperation {
+    public class CustomerOperation {
         /// <summary>
         /// 乗客たち
         /// </summary>

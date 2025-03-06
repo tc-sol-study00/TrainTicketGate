@@ -1,5 +1,5 @@
 ﻿namespace TrainTicketGate.Services {
-    internal static class Config {
+    public static class Config {
         /// <summary>
         /// 期間定義データ
         /// </summary>

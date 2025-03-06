@@ -1,7 +1,7 @@
 ﻿using TrainTicketGate.DTO;
 
 namespace TrainTicketGate.Services {
-    internal class TrainOperation {
+    public class TrainOperation {
 
         /// <summary>
         /// 列車運行リスト固定値

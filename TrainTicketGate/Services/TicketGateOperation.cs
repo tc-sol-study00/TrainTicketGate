@@ -5,7 +5,7 @@ namespace TrainTicketGate.Services {
     /// <summary>
     /// 改札口運行クラス
     /// </summary>
-    internal class TicketGateOperation {
+    public class TicketGateOperation {
 
         /// <summary>
         /// 改札口リスト

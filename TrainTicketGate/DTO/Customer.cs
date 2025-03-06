@@ -5,7 +5,7 @@ namespace TrainTicketGate.DTO {
     /// <summary>
     /// お客
     /// </summary>
-    internal class Customer {
+    public class Customer {
         /// <summary>
         /// 大人・小人区分
         /// </summary>

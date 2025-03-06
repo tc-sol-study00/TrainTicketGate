@@ -4,7 +4,7 @@ namespace TrainTicketGate.Services {
     /// <summary>
     /// コンコース用クラス
     /// </summary>
-    internal class Concourse : AEquipment {
+    public class Concourse : AEquipment {
         /// <summary>
         ///コンコース名
         /// </summary>

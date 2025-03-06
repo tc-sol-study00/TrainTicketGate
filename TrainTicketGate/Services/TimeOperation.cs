@@ -1,5 +1,5 @@
 ﻿namespace TrainTicketGate.Services {
-    internal class TimeOperation {
+    public class TimeOperation {
         /// <summary>
         /// 本日
         /// </summary>
