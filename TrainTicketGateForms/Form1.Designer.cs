@@ -24,15 +24,15 @@
         /// </summary>
         private void InitializeComponent() {
             Button Start;
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle16 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle17 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle18 = new DataGridViewCellStyle();
             label1 = new Label();
             dataGridView1 = new DataGridView();
             Hour = new DataGridViewTextBoxColumn();
@@ -69,12 +69,13 @@
             // 
             // Start
             // 
+            Start.BackColor = SystemColors.ActiveCaption;
             Start.Location = new Point(12, 39);
             Start.Name = "Start";
             Start.Size = new Size(75, 23);
             Start.TabIndex = 2;
             Start.Text = "処理開始";
-            Start.UseVisualStyleBackColor = true;
+            Start.UseVisualStyleBackColor = false;
             Start.Click += Start_Click;
             // 
             // label1
@@ -101,35 +102,35 @@
             // Hour
             // 
             Hour.DataPropertyName = "Hour";
-            dataGridViewCellStyle1.Format = "00";
-            Hour.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle10.Format = "00";
+            Hour.DefaultCellStyle = dataGridViewCellStyle10;
             Hour.HeaderText = "時間帯";
             Hour.Name = "Hour";
             // 
             // Min
             // 
             Min.DataPropertyName = "Min";
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "F2";
-            Min.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle11.Format = "F2";
+            Min.DefaultCellStyle = dataGridViewCellStyle11;
             Min.HeaderText = "最小";
             Min.Name = "Min";
             // 
             // Average
             // 
             Average.DataPropertyName = "Average";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "F2";
-            Average.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle12.Format = "F2";
+            Average.DefaultCellStyle = dataGridViewCellStyle12;
             Average.HeaderText = "平均";
             Average.Name = "Average";
             // 
             // Max
             // 
             Max.DataPropertyName = "Max";
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "F2";
-            Max.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle13.Format = "F2";
+            Max.DefaultCellStyle = dataGridViewCellStyle13;
             Max.HeaderText = "最大";
             Max.Name = "Max";
             // 
@@ -147,35 +148,35 @@
             // dataGridViewTextBoxColumn1
             // 
             dataGridViewTextBoxColumn1.DataPropertyName = "Hour";
-            dataGridViewCellStyle5.Format = "00";
-            dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle14.Format = "00";
+            dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle14;
             dataGridViewTextBoxColumn1.HeaderText = "時間帯";
             dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             // 
             // dataGridViewTextBoxColumn2
             // 
             dataGridViewTextBoxColumn2.DataPropertyName = "Min";
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle6.Format = "F2";
-            dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle15.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle15.Format = "F2";
+            dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle15;
             dataGridViewTextBoxColumn2.HeaderText = "最小";
             dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
             // dataGridViewTextBoxColumn3
             // 
             dataGridViewTextBoxColumn3.DataPropertyName = "Average";
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle7.Format = "F2";
-            dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle16.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle16.Format = "F2";
+            dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle16;
             dataGridViewTextBoxColumn3.HeaderText = "平均";
             dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             // 
             // dataGridViewTextBoxColumn4
             // 
             dataGridViewTextBoxColumn4.DataPropertyName = "Max";
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Format = "F2";
-            dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle17.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle17.Format = "F2";
+            dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle17;
             dataGridViewTextBoxColumn4.HeaderText = "最大";
             dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             // 
@@ -202,7 +203,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(627, 42);
+            label4.Location = new Point(665, 42);
             label4.Name = "label4";
             label4.Size = new Size(43, 15);
             label4.TabIndex = 7;
@@ -211,7 +212,7 @@
             // 
             // kaisatsuSu
             // 
-            kaisatsuSu.Location = new Point(676, 37);
+            kaisatsuSu.Location = new Point(714, 37);
             kaisatsuSu.Name = "kaisatsuSu";
             kaisatsuSu.Size = new Size(32, 23);
             kaisatsuSu.TabIndex = 8;
@@ -221,7 +222,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(338, 42);
+            label5.Location = new Point(376, 42);
             label5.Name = "label5";
             label5.Size = new Size(55, 15);
             label5.TabIndex = 9;
@@ -231,7 +232,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(338, 14);
+            label6.Location = new Point(376, 14);
             label6.Name = "label6";
             label6.Size = new Size(123, 15);
             label6.TabIndex = 10;
@@ -241,7 +242,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(338, 66);
+            label7.Location = new Point(376, 66);
             label7.Name = "label7";
             label7.Size = new Size(123, 15);
             label7.TabIndex = 11;
@@ -249,7 +250,7 @@
             // 
             // simStartTime
             // 
-            simStartTime.Location = new Point(467, 12);
+            simStartTime.Location = new Point(505, 12);
             simStartTime.Name = "simStartTime";
             simStartTime.Size = new Size(100, 23);
             simStartTime.TabIndex = 12;
@@ -257,7 +258,7 @@
             // 
             // serviceEndTime
             // 
-            serviceEndTime.Location = new Point(467, 37);
+            serviceEndTime.Location = new Point(505, 37);
             serviceEndTime.Name = "serviceEndTime";
             serviceEndTime.Size = new Size(100, 23);
             serviceEndTime.TabIndex = 12;
@@ -265,7 +266,7 @@
             // 
             // simEndTime
             // 
-            simEndTime.Location = new Point(467, 61);
+            simEndTime.Location = new Point(505, 61);
             simEndTime.Name = "simEndTime";
             simEndTime.Size = new Size(100, 23);
             simEndTime.TabIndex = 12;
@@ -274,7 +275,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(573, 15);
+            label8.Location = new Point(611, 15);
             label8.Name = "label8";
             label8.Size = new Size(97, 15);
             label8.TabIndex = 13;
@@ -282,7 +283,7 @@
             // 
             // concorseSpend
             // 
-            concorseSpend.Location = new Point(676, 10);
+            concorseSpend.Location = new Point(714, 10);
             concorseSpend.Name = "concorseSpend";
             concorseSpend.Size = new Size(33, 23);
             concorseSpend.TabIndex = 14;
@@ -324,8 +325,8 @@
             // 
             CustomerQty.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             CustomerQty.DataPropertyName = "CustomerQty";
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleRight;
-            CustomerQty.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle18.Alignment = DataGridViewContentAlignment.MiddleRight;
+            CustomerQty.DefaultCellStyle = dataGridViewCellStyle18;
             CustomerQty.HeaderText = "乗客数";
             CustomerQty.Name = "CustomerQty";
             CustomerQty.Width = 68;
