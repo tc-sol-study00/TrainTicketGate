@@ -86,7 +86,6 @@
             label1.Size = new Size(111, 15);
             label1.TabIndex = 0;
             label1.Text = "改札口シミュレーション";
-            label1.Click += label1_Click;
             // 
             // dataGridView1
             // 
@@ -97,7 +96,6 @@
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.Size = new Size(409, 450);
             dataGridView1.TabIndex = 3;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick_1;
             // 
             // Hour
             // 
@@ -143,7 +141,6 @@
             dataGridView2.RowHeadersVisible = false;
             dataGridView2.Size = new Size(412, 450);
             dataGridView2.TabIndex = 4;
-            dataGridView2.CellContentClick += dataGridView2_CellContentClick;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -188,7 +185,6 @@
             label2.Size = new Size(144, 15);
             label2.TabIndex = 5;
             label2.Text = "時間帯別待ち時間集計(秒)";
-            label2.Click += label2_Click;
             // 
             // label3
             // 
@@ -198,7 +194,6 @@
             label3.Size = new Size(168, 15);
             label3.TabIndex = 6;
             label3.Text = "時間帯別待ち行列数集計(人数)";
-            label3.Click += label3_Click;
             // 
             // label4
             // 
@@ -208,7 +203,6 @@
             label4.Size = new Size(43, 15);
             label4.TabIndex = 7;
             label4.Text = "改札数";
-            label4.Click += label4_Click;
             // 
             // kaisatsuSu
             // 
@@ -217,7 +211,6 @@
             kaisatsuSu.Size = new Size(32, 23);
             kaisatsuSu.TabIndex = 8;
             kaisatsuSu.TextAlign = HorizontalAlignment.Right;
-            kaisatsuSu.TextChanged += kaisatsuSu_TextChanged;
             // 
             // label5
             // 
@@ -227,7 +220,6 @@
             label5.Size = new Size(55, 15);
             label5.TabIndex = 9;
             label5.Text = "終電時間";
-            label5.Click += label5_Click;
             // 
             // label6
             // 
@@ -237,7 +229,6 @@
             label6.Size = new Size(123, 15);
             label6.TabIndex = 10;
             label6.Text = "シミュレーション開始時間";
-            label6.Click += label6_Click;
             // 
             // label7
             // 
@@ -307,7 +298,6 @@
             dataGridView3.RowHeadersVisible = false;
             dataGridView3.Size = new Size(288, 450);
             dataGridView3.TabIndex = 16;
-            dataGridView3.CellContentClick += dataGridView3_CellContentClick;
             // 
             // 到着時刻
             // 

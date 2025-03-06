@@ -3,8 +3,8 @@ using TrainTicketGate.Services;
 
 namespace TrainTicketGateForms {
     public partial class Form1 : Form {
-
         private readonly RailwayCompany _railCompany;
+
         public Form1() {
             InitializeComponent();
             _railCompany = new RailwayCompany();
@@ -18,84 +18,56 @@ namespace TrainTicketGateForms {
             concorseSpend.Text = Config.ConcourseDefine.ConcourseSpendSecond.ToString();
         }
 
-        private void label1_Click(object sender, EventArgs e) {
-
-        }
-
         private void Start_Click(object sender, EventArgs e) {
             _railCompany.RailwayCompanyOperations();
 
-            dataGridView3.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray; // 偶数行の背景色
-            dataGridView1.AutoGenerateColumns = false;
+            SetTrainOperationsData();
+            SetCustomerWaitTimeData();
+            SetQueueSummaryData();
+        }
+
+        /// <summary>
+        /// 列車運行データをDataGridViewに設定
+        /// </summary>
+        private void SetTrainOperationsData() {
+            InitializeDataGridView(dataGridView3);
             dataGridView3.DataSource = _railCompany._trainOperation.TimeTables
-                .Select(x => new { ArivalTime = x.ArivalTime.ToString(),x.TrainName, CustomerQty=_railCompany.CustomerQty[x.TrainName].ToString() })
+                .Select(x => new {
+                    ArivalTime = x.ArivalTime.ToString(),
+                    x.TrainName,
+                    CustomerQty = _railCompany.CustomerQty[x.TrainName].ToString()
+                })
                 .ToList();
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
 
-
-            var summarizedList = _railCompany._stationOperation._ticketGateOperation.PutOutCustomers.GroupBy(x => x.DateTimeGetTicketGateArea.Hour)
-               .Select(g => new { Hour = g.Key, Min = g.Min(x => x.WaitSeconds), Average = g.Average(x => x.WaitSeconds), Max = g.Max(x => x.WaitSeconds) })
-               .ToList();
-
-            dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray; // 偶数行の背景色
-
-            dataGridView1.AutoGenerateColumns = false;
-            dataGridView1.DataSource = null;
-            dataGridView1.Rows.Clear();
+        /// <summary>
+        /// 改札通過待ち時間の集計データをDataGridViewに設定
+        /// </summary>
+        private void SetCustomerWaitTimeData() {
+            InitializeDataGridView(dataGridView1);
+            var summarizedList = _railCompany.SummarizeCustomerWaitTime().ToList();
             dataGridView1.DataSource = summarizedList;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
 
-
-            var queueSummary = _railCompany._stationOperation._ticketGateOperation.WaitQueueBySecondsTimes.GroupBy(x => x.ActualDatetime.Hour)
-                .Select(g => new { Hour = g.Key, Min = g.Min(x => x.CustomerNumber), Average = g.Average(x => x.CustomerNumber), Max = g.Max(x => x.CustomerNumber) })
-                .ToList();
-
-            dataGridView2.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray; // 偶数行の背景色
-
-            dataGridView2.AutoGenerateColumns = false;
+        /// <summary>
+        /// 改札通過キューの集計データをDataGridViewに設定
+        /// </summary>
+        private void SetQueueSummaryData() {
+            InitializeDataGridView(dataGridView2);
+            var queueSummary = _railCompany.SummarizePutOutCustomer().ToList();
             dataGridView2.DataSource = queueSummary;
-            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) {
-
-        }
-
-        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e) {
-
-        }
-
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e) {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e) {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e) {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e) {
-
-        }
-
-        private void kaisatsuSu_TextChanged(object sender, EventArgs e) {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e) {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e) {
-
-        }
-
-        private void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e) {
-
+        /// <summary>
+        /// DataGridViewの初期設定
+        /// </summary>
+        /// <param name="gridView">対象のDataGridView</param>
+        private void InitializeDataGridView(DataGridView gridView) {
+            gridView.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray; // 偶数行の背景色
+            gridView.AutoGenerateColumns = false;
+            gridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            gridView.DataSource = null;
+            gridView.Rows.Clear();
         }
     }
 }

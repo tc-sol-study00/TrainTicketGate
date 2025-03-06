@@ -11,13 +11,13 @@ namespace TrainTicketGate
             /*
              * 鉄道会社クラスを生成
              */
-            RailwayCompany _railwayCompany = new RailwayCompany();
+            RailwayCompanyForDisplay _railwayCompanyForDisplay = new RailwayCompanyForDisplay();
 
             /*
              * 鉄道会社オペレーション処理
              */
-            RailwayCompany ExecutedRailwayCompany = _railwayCompany.RailwayCompanyOperations();
-            ExecutedRailwayCompany.Summarize();
+            RailwayCompany ExecutedRailwayCompany = _railwayCompanyForDisplay.RailwayCompanyOperations();
+            ((RailwayCompanyForDisplay)ExecutedRailwayCompany).Summarize();
         }
     }
 }
