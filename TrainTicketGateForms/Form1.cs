@@ -31,11 +31,11 @@ namespace TrainTicketGateForms {
         /// </summary>
         private void SetTrainOperationsData() {
             InitializeDataGridView(dataGridView3);
-            dataGridView3.DataSource = _railCompany._trainOperation.TimeTables
+            dataGridView3.DataSource = _railCompany.GetTimeTablesWithCustomerNumber
                 .Select(x => new {
                     ArivalTime = x.ArivalTime.ToString(),
                     x.TrainName,
-                    CustomerQty = _railCompany.CustomerQty[x.TrainName].ToString()
+                    CustomerQty = x.CustomerQty.ToString()
                 })
                 .ToList();
         }
@@ -45,7 +45,7 @@ namespace TrainTicketGateForms {
         /// </summary>
         private void SetCustomerWaitTimeData() {
             InitializeDataGridView(dataGridView1);
-            var summarizedList = _railCompany.SummarizeCustomerWaitTime().ToList();
+            var summarizedList = _railCompany.SummarizeCustomerWaitTime.ToList();
             dataGridView1.DataSource = summarizedList;
         }
 
@@ -54,7 +54,7 @@ namespace TrainTicketGateForms {
         /// </summary>
         private void SetQueueSummaryData() {
             InitializeDataGridView(dataGridView2);
-            var queueSummary = _railCompany.SummarizePutOutCustomer().ToList();
+            var queueSummary = _railCompany.SummarizePutOutCustomer.ToList();
             dataGridView2.DataSource = queueSummary;
         }
 

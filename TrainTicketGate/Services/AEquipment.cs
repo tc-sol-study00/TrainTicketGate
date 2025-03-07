@@ -63,8 +63,6 @@
         /// </summary>
         /// <param name="timeOperation"></param>
         /// <returns>true/false</returns>
-        public bool IsExitTime(DateTime currentDateTime) {
-            return EstimateExitDateTime == currentDateTime;
-        }
+        public bool IsExitTime(DateTime currentDateTime) => EstimateExitDateTime == currentDateTime;
     }
 }

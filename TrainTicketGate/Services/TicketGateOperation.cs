@@ -114,7 +114,8 @@ namespace TrainTicketGate.Services {
                 }
             }
             //待ち行列集計（秒単位）
-            WaitQueueBySecondsTimes=CreateWaitQueueBySecondsTime(Customers, WaitQueueBySecondsTimes);
+            WaitQueueBySecondsTimes=
+                CreateWaitQueueBySecondsTime(Customers, WaitQueueBySecondsTimes);
 
             return this;
         }
@@ -128,9 +129,14 @@ namespace TrainTicketGate.Services {
         private IList<WaitQueueBySecondsTime> CreateWaitQueueBySecondsTime(IList<Customer> customers, IList<WaitQueueBySecondsTime> waitQueueBySecondsTimes) {
             Dictionary<Config.EnumAdultChildClassification, int> summary 
                 = customers.GroupBy(x => x.AdultChildClassification).ToDictionary(g => g.Key, g => g.Count());
-            (int,int) result = (summary.GetValueOrDefault(Config.EnumAdultChildClassification.Adult, 0), summary.GetValueOrDefault(Config.EnumAdultChildClassification.Child, 0));
+            (int,int) result = (summary.GetValueOrDefault(Config.EnumAdultChildClassification.Adult, 0),
+                                summary.GetValueOrDefault(Config.EnumAdultChildClassification.Child, 0));
 
-            waitQueueBySecondsTimes.Add(new WaitQueueBySecondsTime() { ActualDatetime = _timeOperation.CurrentDateTime, CustomerNumberOfAdult = result.Item1, CustomerNumberOfChild = result.Item2 });
+            waitQueueBySecondsTimes.Add(
+                new WaitQueueBySecondsTime() { 
+                    ActualDatetime = _timeOperation.CurrentDateTime, CustomerNumberOfAdult = result.Item1, CustomerNumberOfChild = result.Item2 
+                }
+            );
 
             return waitQueueBySecondsTimes;
         }

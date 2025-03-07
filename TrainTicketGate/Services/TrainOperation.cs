@@ -107,5 +107,6 @@ namespace TrainTicketGate.Services {
                 return null;
             }
         }
-    }
+
+}
 }

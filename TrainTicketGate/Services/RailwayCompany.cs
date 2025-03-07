@@ -91,15 +91,34 @@ namespace TrainTicketGate.Services {
         /// <summary>
         /// 集計・表示
         /// </summary>
-        public IEnumerable<SummarizedCustpmerData> SummarizeCustomerWaitTime() {
-            return _stationOperation._ticketGateOperation.PutOutCustomers.GroupBy(x => x.DateTimeGetTicketGateArea.Hour)
-                .Select(g => new SummarizedCustpmerData { Hour = g.Key, Min = g.Min(x => x.WaitSeconds), Average = g.Average(x => x.WaitSeconds), Max = g.Max(x => x.WaitSeconds) });
-        }
+        public IEnumerable<SummarizedCustomerData> SummarizeCustomerWaitTime =>
+            _stationOperation._ticketGateOperation.PutOutCustomers.GroupBy(x => x.DateTimeGetTicketGateArea.Hour)
+                .Select(g => new SummarizedCustomerData {
+                    Hour = g.Key,
+                    Min = g.Min(x => x.WaitSeconds),
+                    Average = g.Average(x => x.WaitSeconds),
+                    Max = g.Max(x => x.WaitSeconds)
+                });
 
-        public IEnumerable<SummarizedCustpmerData> SummarizePutOutCustomer() {
-            return _stationOperation._ticketGateOperation.WaitQueueBySecondsTimes.GroupBy(x => x.ActualDatetime.Hour)
-                .Select(g => new SummarizedCustpmerData { Hour = g.Key, Min = g.Min(x => x.CustomerNumber), Average = g.Average(x => x.CustomerNumber), Max = g.Max(x => x.CustomerNumber) });
+        public IEnumerable<SummarizedCustomerData> SummarizePutOutCustomer =>
+            _stationOperation._ticketGateOperation.WaitQueueBySecondsTimes.GroupBy(x => x.ActualDatetime.Hour)
+                .Select(g => new SummarizedCustomerData {
+                    Hour = g.Key,
+                    Min = g.Min(x => x.CustomerNumber),
+                    Average = g.Average(x => x.CustomerNumber),
+                    Max = g.Max(x => x.CustomerNumber)
+                });
 
-        }
+        /// <summary>
+        /// 列車ごとの乗客数をセット
+        /// </summary>
+        /// <returns></returns>        
+        public IEnumerable<TimeTableWithCustomerQty> GetTimeTablesWithCustomerNumber =>
+            _trainOperation?.TimeTables?
+                .Select(x => new TimeTableWithCustomerQty {
+                    ArivalTime = x.ArivalTime,
+                    TrainName = x.TrainName,
+                    CustomerQty = CustomerQty[x.TrainName]
+                }) ?? new List<TimeTableWithCustomerQty>();
     }
 }
