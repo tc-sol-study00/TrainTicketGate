@@ -90,7 +90,16 @@ namespace TrainTicketGate.Services {
             /*
              * 改札を抜けるお客を探して、対象であれば、改札口を空きにする
              */
-            foreach (TicketGate aTicketGate in TicketGates.Where(x => x.BusyFlg == true && x.EstimateExitDateTime == _timeOperation.CurrentDateTime)) {
+
+            // 改札を抜けるお客を探す
+            var avairableTicketGates =
+                 TicketGates
+                .Where( x => x.BusyFlg == true && 
+                        x.EstimateExitDateTime == _timeOperation.CurrentDateTime
+                );
+
+            //改札を抜けた改札口をノービジーにする
+            foreach (TicketGate aTicketGate in avairableTicketGates) {
                 //改札を抜けた時間
                 if (aTicketGate.Customer != null) {
                     PutOutCustomers=PutOutCustomer(aTicketGate.Customer);
